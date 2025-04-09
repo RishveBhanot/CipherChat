@@ -42,7 +42,7 @@ const App = () => {
   // }
 
   return (
-    <div>
+    <div data-theme= "retro">
       {isLoading ? (
         <div className="flex justify-center items-center min-h-screen">
           <CircularProgress />

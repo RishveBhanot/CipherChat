@@ -27,11 +27,10 @@ const ProfilePage = () => {
     if (!file) return;
 
     const formData = new FormData();
-    formData.append("profilePic", file);  // Append file to FormData
+    formData.append("profilePic", file); // Append file to FormData
 
-    dispatch(updateProfile(formData));  // Send file to Redux action
-};
-
+    dispatch(updateProfile(formData)); // Send file to Redux action
+  };
 
   return (
     <div className="h-screen pt-28">
@@ -76,17 +75,21 @@ const ProfilePage = () => {
           <div className="space-y-6">
             <div className="space-y-1.5">
               <div className="text-sm text-zinc-400 flex items-center gap-2">
-                <User className="size-4"/>
+                <User className="size-4" />
                 Full Name
               </div>
-              <p className="px-4 py-2.5 bg-base-200 rounded-lg border">{user?.fullName}</p>
+              <p className="px-4 py-2.5 bg-base-200 rounded-lg border">
+                {user?.fullName}
+              </p>
             </div>
             <div className="space-y-1.5">
               <div className="text-sm text-zinc-400 flex items-center gap-2">
-                <Mail className="size-4"/>
-                  Email
+                <Mail className="size-4" />
+                Email
               </div>
-              <p className="px-4 py-2.5 bg-base-200 rounded-lg border">{user?.email}</p>
+              <p className="px-4 py-2.5 bg-base-200 rounded-lg border">
+                {user?.email}
+              </p>
             </div>
           </div>
           <div className="mt-6 bg-base-300 rounded-xl p-6">
@@ -94,7 +97,7 @@ const ProfilePage = () => {
             <div className="space-y-3 text-sm">
               <div className="flex items-center justify-between py-2 border-b border-zinc-700">
                 <span>Member Since</span>
-                <span>{user.createdAt?.split('T')[0]}</span>
+                <span>{user.createdAt?.split("T")[0]}</span>
               </div>
               <div className="flex items-center justify-between py-2">
                 <span>Account Status</span>

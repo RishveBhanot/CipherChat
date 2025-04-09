@@ -1,5 +1,11 @@
 import express from "express";
-import { checkAuth, login, logout, signup, updateProfile } from "../controllers/auth.controller.js";
+import {
+  checkAuth,
+  login,
+  logout,
+  signup,
+  updateProfile,
+} from "../controllers/auth.controller.js";
 import { protectRoute } from "../middlewares/auth.middleware.js";
 import upload from "../middlewares/multerMiddleware.js";
 
@@ -11,8 +17,13 @@ router.post("/login", login);
 
 router.post("/logout", logout);
 
-router.put('/update-profile', protectRoute, upload.single("profilePic"), updateProfile);
+router.put(
+  "/update-profile",
+  protectRoute,
+  upload.single("profilePic"),
+  updateProfile
+);
 
-router.get('/check', protectRoute, checkAuth);
+router.get("/check", protectRoute, checkAuth);
 
 export default router;

@@ -29,7 +29,7 @@ export const sendMessage = createAsyncThunk("send-message", async (messageData, 
     const formData = new FormData();
     formData.append("text", messageData.text);
     if (messageData.imageFile) {
-      formData.append("image", messageData.imageFile); // "image" must match Multer's field
+      formData.append("image", messageData.imageFile); 
     }
 
     const response = await axiosInstance.post(`/messages/send/${selectedUser._id}`, formData, {
@@ -60,7 +60,10 @@ export const messagesSlice = createSlice({
   reducers: {
     setSelectedUser: (state, action) => {
       state.selectedUser = action.payload;
-    }    
+    },
+    addMessageExternally: (state, action) => {
+      state.messages.push(action.payload);
+    },   
   },
   extraReducers: (builder) => {
     builder
@@ -81,5 +84,5 @@ export const messagesSlice = createSlice({
       
   },
 });
-export const {setSelectedUser} = messagesSlice.actions
+export const {setSelectedUser, addMessageExternally} = messagesSlice.actions
 export default messagesSlice.reducer;

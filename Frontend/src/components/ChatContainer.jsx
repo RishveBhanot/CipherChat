@@ -5,6 +5,7 @@ import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
 import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { formatMessageTime } from "../lib/utils";
+import { subscribeToMessages, unsubscribeFromMessages } from "../lib/messageSocketHelpers";
 
 const ChatContainer = () => {
   const messages = useSelector((state) => state.messages.messages);
@@ -21,8 +22,11 @@ const ChatContainer = () => {
   useEffect(() => {
     if (selectedUser?._id) {
       dispatch(getMessages(selectedUser._id));
+      subscribeToMessages();
+
+      return () => unsubscribeFromMessages();
     }
-  }, [selectedUser, dispatch]);
+  }, [selectedUser, dispatch, subscribeToMessages, unsubscribeFromMessages]);
 
   if (isMessagesLoading)
     return (

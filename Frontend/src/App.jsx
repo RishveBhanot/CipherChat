@@ -15,8 +15,9 @@ import { CircularProgress } from "@mui/material";
 const App = () => {
   const dispatch = useDispatch();
 
-  const { isLoading, user } = useSelector((state) => state.auth);
+  const { isLoading, user, onlineUsers } = useSelector((state) => state.auth);
   console.log("current redux state user", user);
+  console.log("Online Users",onlineUsers)
 
   useEffect(() => {
     const currentTheme = document.documentElement.getAttribute("data-theme");

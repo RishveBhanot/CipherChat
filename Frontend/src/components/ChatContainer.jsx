@@ -20,13 +20,16 @@ const ChatContainer = () => {
   console.log("Selected user in ChatContainer:", selectedUser);
 
   useEffect(() => {
-    if (selectedUser?._id) {
-      dispatch(getMessages(selectedUser._id));
-      subscribeToMessages();
-
-      return () => unsubscribeFromMessages();
-    }
-  }, [selectedUser, dispatch, subscribeToMessages, unsubscribeFromMessages]);
+    if (!selectedUser?._id) return;
+  
+    dispatch(getMessages(selectedUser._id));
+  
+    unsubscribeFromMessages(); // cleanup previous
+    subscribeToMessages();     // setup new
+  
+    return () => unsubscribeFromMessages(); // cleanup on unmount
+  }, [selectedUser._id, dispatch]);
+  
 
   if (isMessagesLoading)
     return (

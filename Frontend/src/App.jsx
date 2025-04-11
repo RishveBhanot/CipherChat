@@ -7,7 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import SettingsPage from "./pages/SettingsPage";
 import ProfilePage from "./pages/ProfilePage";
 import { useDispatch, useSelector } from "react-redux";
-import { checkAuth } from "./redux/authSlice";
+import { checkAuth } from "./redux/authSlice.js";
 import { Toaster } from "react-hot-toast";
 import { CircularProgress } from "@mui/material";
 // import { ColorRing } from 'react-loader-spinner'

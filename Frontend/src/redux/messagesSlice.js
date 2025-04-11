@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
+import { getSocket } from "../lib/socket";
 
 export const getUsers = createAsyncThunk("get-users", async () => {
   try {
@@ -37,6 +38,14 @@ export const sendMessage = createAsyncThunk("send-message", async (messageData, 
         "Content-Type": "multipart/form-data",
       },
     });
+
+    const socket = getSocket();
+    if(socket){
+      socket.emit("sendMessage", {
+        ...response.data,
+        receiverId: selectedUser._id,
+      })
+    }
 
     return response.data;
   } catch (error) {

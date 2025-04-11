@@ -1,5 +1,3 @@
-import { store } from "../redux/store"; // Import your configured Redux store
-
 let socket;
 
 export const setSocketInstance = (socketInstance) => {
@@ -7,12 +5,12 @@ export const setSocketInstance = (socketInstance) => {
 };
 
 export const subscribeToMessages = () => {
-  if (!socket) return;
-
   socket.on("newMessage", (newMessage) => {
+    console.log("New incoming message:", newMessage); // 👀 See if this runs
+  
     const selectedUser = store.getState().messages.selectedUser;
     if (!selectedUser || newMessage.senderId !== selectedUser._id) return;
-
+  
     store.dispatch({
       type: "messages/addMessageExternally",
       payload: newMessage,

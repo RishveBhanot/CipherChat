@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers, setSelectedUser } from "../redux/messagesSlice";
+import { getUsers, setSelectedUser } from "../redux/messagesSlice.js";
 import SidebarSkeleton from "./skeletons/SidebarSkeleton.jsx";
 import { Users } from "lucide-react";
 

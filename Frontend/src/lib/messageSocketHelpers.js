@@ -1,5 +1,5 @@
 let socket;
-let reduxStore; // We'll assign it dynamically
+let reduxStore; // We'll assign it dynamically.
 
 export const setSocketInstance = (socketInstance) => {
   socket = socketInstance;

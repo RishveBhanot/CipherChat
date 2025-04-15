@@ -12,7 +12,7 @@ export const initializeSocketEvents = (userId, dispatch, store) => {
   if (!socket) return;
 
   setSocketInstance(socket);
-  setReduxStore(store);       // ✅ Pass store to avoid circular import
+  setReduxStore(store);       // ✅ Pass store to avoid circular import.
   subscribeToMessages();
 
   socket.on("getOnlineUsers", (userIds) => {

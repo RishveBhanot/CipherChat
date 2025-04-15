@@ -1,14 +1,18 @@
 import { connectSocket } from "./socket";
 import { setOnlineUsers } from "../redux/authSlice";
-import { setSocketInstance, subscribeToMessages } from "./messageSocketHelpers";
+import {
+  setSocketInstance,
+  setReduxStore,      // ✅ NEW
+  subscribeToMessages,
+} from "./messageSocketHelpers";
 
-export const initializeSocketEvents = (userId, dispatch) => {
+export const initializeSocketEvents = (userId, dispatch, store) => {
   const socket = connectSocket(userId);
 
   if (!socket) return;
 
   setSocketInstance(socket);
-
+  setReduxStore(store);       // ✅ Pass store to avoid circular import
   subscribeToMessages();
 
   socket.on("getOnlineUsers", (userIds) => {

@@ -1,17 +1,22 @@
 let socket;
+let reduxStore; // We'll assign it dynamically
 
 export const setSocketInstance = (socketInstance) => {
   socket = socketInstance;
 };
 
+export const setReduxStore = (store) => {
+  reduxStore = store;
+};
+
 export const subscribeToMessages = () => {
   socket.on("newMessage", (newMessage) => {
-    console.log("New incoming message:", newMessage); // 👀 See if this runs
-  
-    const selectedUser = store.getState().messages.selectedUser;
+    console.log("New incoming message:", newMessage);
+
+    const selectedUser = reduxStore.getState().messages.selectedUser;
     if (!selectedUser || newMessage.senderId !== selectedUser._id) return;
-  
-    store.dispatch({
+
+    reduxStore.dispatch({
       type: "messages/addMessageExternally",
       payload: newMessage,
     });

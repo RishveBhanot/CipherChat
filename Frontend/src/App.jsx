@@ -10,14 +10,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkAuth } from "./redux/authSlice.js";
 import { Toaster } from "react-hot-toast";
 import { CircularProgress } from "@mui/material";
-// import { ColorRing } from 'react-loader-spinner'
+
+import { store } from "./redux/store"; // ✅ added
+import { initializeSocketEvents } from "./lib/socketListeners"; // ✅ added
 
 const App = () => {
   const dispatch = useDispatch();
-
   const { isLoading, user, onlineUsers } = useSelector((state) => state.auth);
-  console.log("current redux state user", user);
-  console.log("Online Users",onlineUsers)
 
   useEffect(() => {
     const currentTheme = document.documentElement.getAttribute("data-theme");
@@ -30,20 +29,15 @@ const App = () => {
     dispatch(checkAuth());
   }, [dispatch]);
 
-  // if(isLoading && !authUser) {
-  //   return (<ColorRing
-  //     visible={true}
-  //     height="80"
-  //     width="80"
-  //     ariaLabel="color-ring-loading"
-  //     wrapperStyle={{}}
-  //     wrapperClass="color-ring-wrapper"
-  //     colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-  //     />)
-  // }
+  // ✅ Socket init: only when user is set after checkAuth
+  useEffect(() => {
+    if (user?._id) {
+      initializeSocketEvents(user._id, store.dispatch, store);
+    }
+  }, [user]);
 
   return (
-    <div data-theme= "retro">
+    <div data-theme="retro">
       {isLoading ? (
         <div className="flex justify-center items-center min-h-screen">
           <CircularProgress />
